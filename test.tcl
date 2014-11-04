@@ -3,39 +3,24 @@ console show
 update
 proc addImgToDoc {docFileName} {
   puts "Démarrage de l'inclusion dans le fichier document.xml"
-  set xmlData [dom parse [tDOM::xmlReadFile $docFileName]]
+  set xmlData [dom parse [tDOM::xmlReadFile ${docFileName}]]
   
   set ns2 {rel urn:schemas-microsoft-com:vml w http://schemas.openxmlformats.org/wordprocessingml/2006/main}
   set rootFile [$xmlData documentElement]
-  puts $rootFile
-  puts [$rootFile nodeName]
   set lastParagraph [$xmlData selectNodes -namespaces $ns2 {/w:document/w:body}]
-  
-  
   set myPara [createTheParagraphPart $xmlData]
   #$lastParagraph appendChild $myPara
-  
-  
-    
-  puts "myparagraph"
-  #puts [$myPara asXML]
-  puts [$lastParagraph lastChild]
-  #$lastParagraph insertBefore
-  #$lastParagraph appendXML  "<w:p w:rsidR='0082274B' w:rsidRDefault='00896E90'/>"
-  #puts [$lastParagraph asXML]
-  #puts "Move    ----------------------"
-  update
-  #set move [$xmlData selectNodes -namespaces $ns2 {/w:document/w:body/w:p[last()]}]
-  #puts [$move asXML]
-  #puts "Move    ----------------------"
-  #update
-  
-  #$xmlData removeChild $move
-  #set nextPara [$lastParagraph insertBefore
   $lastParagraph insertBefore $myPara [$lastParagraph lastChild]
-  puts "lastPara ===================="
-  puts $lastParagraph 
-  puts [$lastParagraph asXML]
+  
+  # Write the new document image inserted
+  set fdOut [open "${docFileName}" w]
+  fconfigure $fdOut -encoding utf-8
+  puts $fdOut {<?xml version="1.0" encoding="UTF-8" standalone="yes"?>}
+  puts $fdOut [$rootFile asXML]
+  close $fdOut
+  
+  $xmlData delete
+
 
 }
 
@@ -61,20 +46,21 @@ proc createTheParagraphPart {doc} {
   return $myPara
 }
 
-proc addImgToDocRel {docFileName} {
+proc addImgToDocRel {docFileName fileName} {
   puts "Démarrage de l'inclusion dans le fichier document.xml.rels"
   set xmlData [dom parse [tDOM::xmlReadFile $docFileName]]
   set ns {rel http://schemas.openxmlformats.org/package/2006/relationships}
   set rootFile [$xmlData documentElement]
-  puts [$rootFile asXML]
   set lastParagraph [$xmlData selectNodes -namespaces $ns {/rel:Relationships}]
-  puts "lastParaFromRel"
-  puts [$lastParagraph asXML]
-  update
-  set myPara [createTheRelationshipsPart $xmlData "toto.gif"]
+  set myPara [createTheRelationshipsPart $xmlData $fileName]
   $lastParagraph appendChild $myPara
-  puts "++++++++++++++++++++++++++++++++++++++++++++++"
-  puts [$lastParagraph asXML]
+  # Write the new document image inserted
+  set fdOut [open "${docFileName}" w]
+  fconfigure $fdOut -encoding utf-8
+  puts $fdOut {<?xml version="1.0" encoding="UTF-8" standalone="yes"?>}
+  puts $fdOut [$rootFile asXML]
+  close $fdOut
+  $xmlData delete
 }
 
 
@@ -87,14 +73,24 @@ proc createTheRelationshipsPart {doc filename} {
   $myPara setAttribute Type "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"
   $myPara setAttribute Target $filename
   $myPara setAttribute TargetMode "External"
-  incr shapeId
   return $myPara
 }
-
     
 
 set shapeId 0
-set lesImgs [list "toto.gif" "tata.gif"]
+set lesImgs [list "toto.gif" "titi.gif" "tata.gif"]
 
-addImgToDoc "./origine/word/document.xml"
-addImgToDocRel "./origine/word/_rels/document.xml.rels"
+proc addImage {listImgPath wordDoc} {
+  global shapeId
+  foreach fichierAInclure $listImgPath {
+    addImgToDoc "$wordDoc/word/document.xml"
+    addImgToDocRel "$wordDoc/word/_rels/document.xml.rels" $fichierAInclure
+    incr shapeId
+  }
+}
+
+addImage $lesImgs "./origine"
+
+
+
+puts "C'est Fini"
