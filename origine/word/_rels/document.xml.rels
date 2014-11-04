@@ -6,6 +6,4 @@
   <Relationship Id="rId6" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>
   <Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>
   <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/webSettings" Target="webSettings.xml"/>
-    <Relationship Id="rId36" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="gif/QTD_I_SEC3_TIR.gif" TargetMode="External"/>
-
 </Relationships>
