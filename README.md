@@ -27,7 +27,10 @@ Features
 How to use
 ----------
 
-See "testLibWord.tcl" 
+See "testLibWord.tcl" and "testLibWordList.tcl"
+
+
+
 
 Future
 ------
