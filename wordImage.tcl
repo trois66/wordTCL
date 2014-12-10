@@ -133,7 +133,7 @@ oo::class create image {
         $root appendFromScript {
             w:r {
                 w:pict  {
-                    v:shape  id "_x0000_i[[self] getImageId]" style [[self] getImageStyle] o:preferrelative "f" {
+                    v:shape  id "_x0000_i[[self] getImageId]" style [[self] getImageStyle] type "#_x0000_t75" o:preferrelative "f" {
                         v:imagedata r:id "trImgId[[self] getImageId]"
                         o:lock v:ext "edit" aspectratio "f"
                     }
@@ -151,7 +151,7 @@ set myPara [$doc createElementNS "http://schemas.openxmlformats.org/package/2006
   set textShapeId "trImgId[[self] getImageId]"
   $myPara setAttribute Id $textShapeId
   $myPara setAttribute Type "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image"
-  $myPara setAttribute Target "file:///[[self] getImagePath]"
+  $myPara setAttribute Target "[string map {"/" "\\"} [[self] getImagePath]]"
   $myPara setAttribute TargetMode "External"
 
 

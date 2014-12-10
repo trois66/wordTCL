@@ -54,6 +54,20 @@ oo::class create wordDocument {
         variable relsDocument
         return [$relsDocument getTrImgIdLast]
     }
+    method  createFromList {laListe} {
+        foreach line $laListe {
+            set type [lindex $line 0]
+            set content [lindex $line 1]
+            set arg [lrange $line 2 end]
+            puts "traitement de la ligne:$line\n"
+            puts "type:$type\n"
+            puts "content:$content\n"
+            puts "arg:$arg\n"
+            [self] add$type $content $arg
+        
+        }
+
+    }
     method copyAndMountDocX {filename} {
         variable documentXmlContent
         variable documentContent

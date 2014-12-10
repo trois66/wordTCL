@@ -26,7 +26,6 @@ oo::class create wordDocumentRels {
         lappend newRelsToAdd $elem
     
     }
-    
     method loadRels {filename} {
         variable relationShipList
         variable trImgIdLast
