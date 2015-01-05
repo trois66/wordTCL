@@ -19,6 +19,9 @@ package require tdom
 
 
 proc gifsize {name} {
+    if { [file exists $name] != 1} {
+      return [list 100 100]
+    }
     set f [open $name r]
     fconfigure $f -translation binary
     # read GIF signature -- check that this is
