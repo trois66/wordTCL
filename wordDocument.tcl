@@ -10,6 +10,8 @@ oo::class create wordDocument {
         puts "construction de document"
     }
     constructor {filename} {
+        variable documentSourceFileName
+        set documentSourceFileName $filename
         variable documentContent
         variable documentXmlContent
         variable relsDocument
@@ -41,7 +43,7 @@ oo::class create wordDocument {
             set result "$result[$element renderTDOM]"
         }
         set result "$result</root>"
-        puts $result
+        #puts $result
         set valueToRet [dom parse $result]
         set root [$valueToRet documentElement]
         return $root
@@ -59,21 +61,22 @@ oo::class create wordDocument {
             set type [lindex $line 0]
             set content [lindex $line 1]
             set arg [lrange $line 2 end]
-            puts "traitement de la ligne:$line\n"
-            puts "type:$type\n"
-            puts "content:$content\n"
-            puts "arg:$arg\n"
+            #puts "traitement de la ligne:$line\n"
+            #puts "type:$type\n"
+            #puts "content:$content\n"
+            #puts "arg:$arg\n"
             [self] add$type $content $arg
         
         }
 
     }
     method copyAndMountDocX {filename} {
+        variable documentSourceFileName
         variable documentXmlContent
         variable documentContent
         variable relsDocument
-        #file copy -force $filename temp_$filename
-        set mnt_file [vfs::zip::Mount $filename ./temp]
+        #file copy -force $documentSourceFileName temp_$documentSourceFileName
+        set mnt_file [vfs::zip::Mount $documentSourceFileName ./temp]
         #puts "mnt_file:$mnt_file"
         file delete -force -- ./temp2/temp
         
@@ -116,10 +119,12 @@ oo::class create wordDocument {
         $relsDocument copyDocX
         puts "on compresse tout\n\n"
         set listFileF [findFiles temp2/temp/ *]
-        lappend listFileF "_rels/.rels"
-                puts $listFileF
-
-        zipper::list2zip temp2/temp $listFileF "tralala.docx"
+        # use this file for linux
+        if { [lindex $::tcl_platform(os) 0] != "Windows" } {
+           lappend listFileF "_rels/.rels"
+        } 
+        
+        zipper::list2zip temp2/temp $listFileF $filename
         
     }
     destructor {

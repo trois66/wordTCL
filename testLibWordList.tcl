@@ -5,33 +5,24 @@ set monDoc [wordDocument new document.docx]
 #$monDoc initialisation
 
 set laFameuseListe {}
-lappend laFameuseListe {Paragraph "je ne sais pas" "Titre1"}
-lappend laFameuseListe {Paragraph "Mais il faudrait savoir"}
+lappend laFameuseListe {Paragraph "On insere un titre" "Titre1"}
+lappend laFameuseListe {Paragraph "c'est un paragraph Normal qui suit le titre au format TITRE 1"}
+lappend laFameuseListe {Paragraph "deuxieme paragraph suivi d'une image"}
 lappend laFameuseListe {Image "test.gif"}
-puts $laFameuseListe
+lappend laFameuseListe {Paragraph "ici on met une image qui n'existe pas" "Titre1"}
+lappend laFameuseListe {Paragraph "juste pour voir les liens finaux dans le docx"}
+lappend laFameuseListe {Image "toto.gif"}
+lappend laFameuseListe {Paragraph "Titre de niveau 1" "Titre1"}
+lappend laFameuseListe {Paragraph "Titre de niveau 2" "Titre2"}
+lappend laFameuseListe {Paragraph "Titre de niveau 3" "Titre3"}
+lappend laFameuseListe {Paragraph "Titre de niveau 4" "Titre4"}
+lappend laFameuseListe {Paragraph "Titre de niveau 5" "Titre5"}
+lappend laFameuseListe {Paragraph "Titre de niveau 6" "Titre6"}
+
+# puts $laFameuseListe
 $monDoc createFromList $laFameuseListe
-#$monDoc addParagraph "1 le contenu de mon paragraph sans titre"
-#$monDoc addParagraph "2 le contenu de mon paragraph avec titre" "Titre1"
-#$monDoc addParagraph "3 le paragraph" "heading 1"
 
-#$monDoc addImage "./test.gif"
-#$monDoc addImage "test.gif"
-#$monDoc addImage "test.gif"
-#$monDoc addParagraph "3 le paragraph" "Titre1"
-#$monDoc addParagraph "3 le paragraph" "Titre2"
-#$monDoc addParagraph "3 le paragraph" "Titre2"
-#$monDoc addParagraph "3 le paragraph" "Titre3"
-
-
-#set rels [wordDocumentRels new]
-#$rels loadRels document.docx
 
 puts "#################################################################"
-
-#$monDoc copyAndMountDocX document.docx
-foreach im [$monDoc getContentList] {
-puts [[$im renderTDOM] asXML]
-}
-puts "#################################################################"
-$monDoc copyAndMountDocX document.docx
-#puts [$monDoc renderTDOM] 
+$monDoc copyAndMountDocX documentResult.docx
+#puts [$monDoc renderTDOM]  
