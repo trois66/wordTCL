@@ -22,7 +22,8 @@ Features
 
 * Create new document based on a template file (empty docx file)
 * Add paragraph (normal)
-* Add images (only external image)
+* Add paragraph of type 'heading'
+* Add images (only external images)
 
 How to use
 ----------
@@ -30,13 +31,12 @@ How to use
 See "testLibWord.tcl" and "testLibWordList.tcl"
 
 
-
-
 Future
 ------
 
-For now I have to make the first release.  
-So 'paragraph' and 'image' must work...  
+For now I have to make the first release. 
+Update zipper.tcl to use only vfs for crc calculation (for now there is a patch for linux platform). 
+Add documentation on source code.
 Adding more Word Element support  
 
 
