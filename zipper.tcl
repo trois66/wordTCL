@@ -5,6 +5,12 @@
 package provide zipper 0.2
 package require vfs::zip
 
+
+
+
+puts "now [::vfs::crc "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]"
+
+        
 namespace eval zipper {
 
     namespace ensemble create
@@ -188,7 +194,13 @@ namespace eval zipper {
             set fsize $force
             set type 8 ;# if we're passing in compressed data, it's deflated
         }
-        
+        if { [lindex $::tcl_platform(os) 0] != "Windows" } {
+            proc ::vfs::crc {data} {
+                return [zlib crc32 $data]
+            }
+        } 
+
+
         if {[catch { ::vfs::crc $contents } crc]} {
             set crc 0
         } elseif {$type == 0} {
@@ -199,7 +211,7 @@ namespace eval zipper {
                 set type 8 ;# deflate
             }
         }
-        #puts "crc=$crc"
+        puts "crc=$crc"
         lappend v::toc "[binary format a2c6ssssiiiss4ii PK {1 2 20 0 20 0} \
         $flag $type $time $date $crc $csize $fsize $fnlen \
         {0 0 0 0} 128 [tell $v::fd]]$name"
