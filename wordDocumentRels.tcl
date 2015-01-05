@@ -33,7 +33,7 @@ oo::class create wordDocumentRels {
         set doc [dom parse [tDOM::xmlReadFile "./temp/word/_rels/document.xml.rels"]]
         
         set root [$doc documentElement]
-        puts "avant: [$root asXML]"
+        #puts "avant: [$root asXML]"
         
         set ns {rel http://schemas.openxmlformats.org/package/2006/relationships}
         set allRels [$doc selectNodes -namespaces $ns {/rel:Relationships/*}]
@@ -63,33 +63,20 @@ oo::class create wordDocumentRels {
         if {![info exist newRelsToAdd ]} {
         return}
         
-        
-        
-        
-        
         set doc [dom parse [tDOM::xmlReadFile "./temp2/temp/word/_rels/document.xml.rels"]]
-        
-        
-        
-        
+         
         set ns {rel http://schemas.openxmlformats.org/package/2006/relationships}
-  set rootFile [$doc documentElement]
-  set lastParagraph [$doc selectNodes -namespaces $ns {/rel:Relationships}]
-  foreach nrel $newRelsToAdd {
-    set myPara [$nrel renderRels]
-    $lastParagraph appendChild $myPara
-}
-        
-        
-        
+        set rootFile [$doc documentElement]
+        set lastParagraph [$doc selectNodes -namespaces $ns {/rel:Relationships}]
+        foreach nrel $newRelsToAdd {
+          set myPara [$nrel renderRels]
+          $lastParagraph appendChild $myPara
+        }
         
         set root [$doc documentElement]
-        puts "_________rels: [$root asXML]"
-        
-        
-        
-        
-        puts "on ecris fichier\n\n"
+        #puts "_________rels: [$root asXML]"
+       
+        #puts "on ecris fichier\n\n"
         set out [open "./temp2/temp/word/_rels/document.xml.rels" w]
         chan configure $out -encoding utf-8
         puts $out "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
