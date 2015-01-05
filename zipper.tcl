@@ -9,6 +9,13 @@ namespace eval zipper {
 
     namespace ensemble create
     namespace export list2zip unzip zcopy zstat
+    #set OS [lindex $tcl_platform(os) 0]
+    #if { $OS == "Windows" } {
+    #  package req 
+    #} else {
+    #  perform that ...
+    #}
+    
     
     # -- list2zip
     #
@@ -182,17 +189,17 @@ namespace eval zipper {
             set type 8 ;# if we're passing in compressed data, it's deflated
         }
         
-        if {[catch { zlib crc32 $contents } crc]} {
+        if {[catch { ::vfs::crc $contents } crc]} {
             set crc 0
         } elseif {$type == 0} {
-            set cdata [zlib deflate $contents]
+            set cdata [::vfs::zip -nowrap 1 -mode compress $contents]
             if {[string length $cdata] < [string length $contents]} {
                 set contents $cdata
                 set csize [string length $cdata]
                 set type 8 ;# deflate
             }
         }
-        
+        puts "crc=$crc"
         lappend v::toc "[binary format a2c6ssssiiiss4ii PK {1 2 20 0 20 0} \
         $flag $type $time $date $crc $csize $fsize $fnlen \
         {0 0 0 0} 128 [tell $v::fd]]$name"
