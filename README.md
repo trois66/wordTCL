@@ -34,9 +34,9 @@ See "testLibWord.tcl" and "testLibWordList.tcl"
 Future
 ------
 
-For now I have to make the first release. 
-Update zipper.tcl to use only vfs for crc calculation (for now there is a patch for linux platform). 
-Add documentation on source code.
+For now I have to make the first release.  
+Update zipper.tcl to use only vfs for crc calculation (for now there is a patch for linux platform).  
+Add documentation on source code.  
 Adding more Word Element support  
 
 
