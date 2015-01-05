@@ -47,7 +47,7 @@ oo::define wordDocument method addImage {content {format "external"} {style ""}}
     variable documentContent
     variable imageId
     variable relsDocument
-    set temp [image new]
+    set temp [wImage new]
     $temp setImagePath $content
     $temp setImageFormat $format
     $temp setImageStyle $style
@@ -57,7 +57,7 @@ oo::define wordDocument method addImage {content {format "external"} {style ""}}
     return #$documentContent
 }
 
-oo::class create image {
+oo::class create wImage {
     constructor {} {
         variable imagePath ""
         variable imageFormat ""
