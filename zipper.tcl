@@ -199,7 +199,7 @@ namespace eval zipper {
                 set type 8 ;# deflate
             }
         }
-        puts "crc=$crc"
+        #puts "crc=$crc"
         lappend v::toc "[binary format a2c6ssssiiiss4ii PK {1 2 20 0 20 0} \
         $flag $type $time $date $crc $csize $fsize $fnlen \
         {0 0 0 0} 128 [tell $v::fd]]$name"
