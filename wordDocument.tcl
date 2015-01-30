@@ -2,7 +2,7 @@ package require TclOO;  #if loading for the first time; not required on Tcl 8.6
 package require vfs::zip
 package require tdom
 
-oo::class create wordDocument {
+oo::class create ::wordTcl::wordDocument {
     constructor {} {
         variable documentContent
         variable documentXmlContent
@@ -15,14 +15,14 @@ oo::class create wordDocument {
         variable documentContent
         variable documentXmlContent
         variable relsDocument
-        set relsDocument [wordDocumentRels new $filename]
+        set relsDocument [::wordTcl::wordDocumentRels new $filename]
         puts "construction de document avec template '$filename'."
     }
     method initialisation {{filename document.docx}} {
         variable documentContent
         variable documentXmlContent
         variable relsDocument
-        set relsDocument [wordDocumentRels new]
+        set relsDocument [::wordTcl::wordDocumentRels new]
         $relsDocument loadRels $filename
         puts "construction de document"
     }

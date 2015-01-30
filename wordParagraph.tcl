@@ -1,16 +1,16 @@
-package req TclOO
-package require tdom
+#package req TclOO
+#package require tdom
 
-oo::define wordDocument method addParagraph {content {style ""}} {
+oo::define ::wordTcl::wordDocument method addParagraph {content {style ""}} {
         variable documentContent
-        set temp [paragraph new]
+        set temp [::wordTcl::paragraph new]
         $temp setParagraphContent $content
         $temp setStyle $style
         lappend documentContent $temp
         return #$documentContent
     }
 
-oo::class create paragraph {
+oo::class create ::wordTcl::paragraph {
     constructor {} {
         variable paragraphContent ""
         variable paragraphStyle ""

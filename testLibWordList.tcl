@@ -1,7 +1,9 @@
-package req TclOO
-source "./wordDocument.tcl"
+#package req TclOO
+lappend auto_path [pwd]
 
-set monDoc [wordDocument new document.docx]
+package req wordTcl
+
+set monDoc [wordTcl::wordDocument new document.docx]
 #$monDoc initialisation
 
 set laFameuseListe {}

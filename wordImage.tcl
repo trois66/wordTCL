@@ -1,5 +1,5 @@
-package req TclOO
-package require tdom
+#package req TclOO
+#package require tdom
 
 #package require Img
 
@@ -46,11 +46,11 @@ proc gifsize {name} {
     return [list $wid $hgt]
  }
 
-oo::define wordDocument method addImage {content {format "external"} {style ""}} {
+oo::define ::wordTcl::wordDocument method addImage {content {format "external"} {style ""}} {
     variable documentContent
     variable imageId
     variable relsDocument
-    set temp [wImage new]
+    set temp [::wordTcl::wImage new]
     $temp setImagePath $content
     $temp setImageFormat $format
     $temp setImageStyle $style
@@ -60,7 +60,7 @@ oo::define wordDocument method addImage {content {format "external"} {style ""}}
     return #$documentContent
 }
 
-oo::class create wImage {
+oo::class create ::wordTcl::wImage {
     constructor {} {
         variable imagePath ""
         variable imageFormat ""

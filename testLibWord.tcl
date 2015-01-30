@@ -1,7 +1,11 @@
-package req TclOO
-source "./wordDocument.tcl"
+#package req TclOO
 
-set monDoc [wordDocument new document.docx]
+lappend auto_path [pwd]
+
+package req wordTcl
+
+
+set monDoc [::wordTcl::wordDocument new document.docx]
 $monDoc addParagraph "1 le contenu de mon paragraph sans titre"
 $monDoc addParagraph "2 le contenu de mon paragraph avec titre" "Titre1"
 $monDoc addParagraph "3 le paragraph" "heading 1"

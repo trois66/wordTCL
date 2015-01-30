@@ -1,8 +1,8 @@
-package require TclOO;  #if loading for the first time; not required on Tcl 8.6
-package require vfs::zip
-package require tdom
+#package require TclOO;  #if loading for the first time; not required on Tcl 8.6
+#package require vfs::zip
+#package require tdom
 
-oo::class create wordDocumentRels {
+oo::class create ::wordTcl::wordDocumentRels {
     constructor {} {
         variable relationShipList
         variable trImgIdLast
